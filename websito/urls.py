@@ -13,9 +13,38 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+    # Examples:
+    # url(r'^$', 'mysite.views.home', name='home'),
+    # url(r'^blog/', include('blog.urls')),
+    
     url(r'^admin/', admin.site.urls),
+    url(r'', include('blog.urls')),
+    # Esto significa que para cada URL que empieza con admin/ Django encontrará
+    # su correspondiente view. En este caso estamos incluyendo en una sola línea
+    # muchas URLs de admin, así no está todo comprimido en este pequeño archivo
+    # es más limpio y legible.
+    
+        # ^ denota el principio del texto
+        # $ denota el final del texto
+        # \d representa un dígito
+        # + indica que el ítem anterior debería ser repetido por lo menos una vez
+        # () para encerrar una parte del patrón
+
+            # EJEMPLO: http://www.mysite.com/post/12345/
+                
+            #   ^post/(\d+)/$
+                            
+            # ^post/ le está diciendo a Django que tome cualquier cosa que tenga post/ al principio
+            # del URL (justo antes de ^)
+            # (\d+) significa que habrá un número (de uno o más dígitos) y que queremos que ese número
+            # sea capturado y extraído
+            # / le dice a Django que otro caracter / debería venir a continuación
+            # $ indica el final del URL, lo que significa que sólo cadenas finalizando con / coincidirán
+            # con este patrón
+
 ]
+
